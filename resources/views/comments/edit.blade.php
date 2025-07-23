@@ -27,14 +27,15 @@
 @extends('layouts.app')
 
 @section('content')
-<h3>✏️ Izohni tahrirlash</h3>
+  <h3>Izohni tahrirlash</h3>
+  <p><strong>Muallif:</strong> {{ optional($comment->user)->name ?? 'Noma’lum' }}</p>
 
-<form action="{{ route('comments.update', $comment->id) }}" method="POST">
+  <form action="{{ route('comments.update', $comment->id) }}" method="POST">
     @csrf
     @method('PUT')
     <textarea name="body" class="form-control" required>{{ $comment->body }}</textarea>
     <button type="submit" class="btn btn-primary mt-2">Saqlash</button>
-</form>
+  </form>
 @endsection
 
 @endsection

@@ -13,7 +13,11 @@ class AdminController extends Controller
     {
         $posts = Post::latest()->get();
         $comments = Comment::latest()->get();
-        return view('admin.dashboard', compact('posts', 'comments'));
+        $postCount = \App\Models\Post::count();
+        $userCount = \App\Models\User::count();
+        $commentCount = \App\Models\Comment::count();
+
+        return view('admin.dashboard', compact('posts', 'comments', 'postCount', 'userCount', 'commentCount'));
     }
 
     public function users()

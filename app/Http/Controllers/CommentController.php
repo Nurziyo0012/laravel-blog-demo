@@ -22,7 +22,7 @@ class CommentController extends Controller
         $comment->author = $request->author;
         $comment->body = $request->body;
         $comment->post_id = $post->id;
-
+        $comment->user_id = Auth::id();
         $comment->save();
 
         return redirect()->route('posts.show', $post->id)->with('success', 'Izoh yuborildi!');
