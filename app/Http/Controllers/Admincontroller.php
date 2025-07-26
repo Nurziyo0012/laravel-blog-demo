@@ -17,6 +17,9 @@ class AdminController extends Controller
         $userCount = \App\Models\User::count();
         $commentCount = \App\Models\Comment::count();
 
+
+        
+ 
         return view('admin.dashboard', compact('posts', 'comments', 'postCount', 'userCount', 'commentCount'));
     }
 

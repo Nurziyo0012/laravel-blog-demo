@@ -6,6 +6,8 @@ use App\Http\Controllers\CommentController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\DashboardController;
 
+
+
 Route::get('/', function () {
     return view('welcome');
 });
@@ -26,17 +28,25 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/admin/users', [AdminController::class, 'users'])->name('admin.users');
 });
 
+Route::middleware(['auth', 'is_admin'])->group(function () {
+    Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
+});
+
 Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 });
 
+Route::get('/admin/dashboard',[AdminController::class, 'dashboard'])->name('admin.dashboard');
+
 // Kirish talab qilinmaydigan route’lar
 Route::get('/', [PostController::class, 'index'])->name('posts.index');
 Route::get('/posts/{post}', [PostController::class, 'show'])->name('posts.show');
-
+Route::get('/posts/create', [PostController::class, 'create'])->name('posts.create');
+Route::post('/posts', [PostController::class, 'store'])->name('posts.store');
 // 🔐 Ro‘yxatdan o‘tganlar uchun cheklangan route’lar
 Route::middleware(['auth'])->group(function () {
-    Route::resource('posts', PostController::class)->except(['index', 'show']);
+Route::resource('posts', PostController::class)->except(['index', 'show']);
+
 
     Route::post('/posts/{post}/comments', [CommentController::class, 'store'])->name('comments.store');
     Route::delete('/comments/{comment}', [CommentController::class, 'destroy'])->name('comments.destroy');

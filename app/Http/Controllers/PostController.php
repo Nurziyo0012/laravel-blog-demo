@@ -110,5 +110,8 @@ class PostController extends Controller
 
     return redirect()->route('admin.dashboard')->with('success', 'Post o‘chirildi!');
     }
+
     
 }
+
+    
