@@ -12,6 +12,10 @@
             @method('DELETE')
             <button class="btn btn-sm btn-danger" onclick="return confirm('Haqiqatan ham o‘chirmoqchimisiz?')">🗑️ O‘chirish</button>
         </form>
+        <form method="POST" action="{{ route('logout') }}">
+    @csrf
+    <button type="submit">Logout</button>
+</form>
     </li>
 @endforeach
 @extends('layouts.app')

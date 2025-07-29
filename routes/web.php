@@ -6,7 +6,7 @@ use App\Http\Controllers\CommentController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\DashboardController;
 
-
+Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
 
 Route::get('/', function () {
     return view('welcome');
@@ -52,4 +52,5 @@ Route::resource('posts', PostController::class)->except(['index', 'show']);
     Route::delete('/comments/{comment}', [CommentController::class, 'destroy'])->name('comments.destroy');
     Route::put('/comments/{comment}', [CommentController::class, 'update'])->name('comments.update');
     Route::get('/comments/{comment}/edit', [CommentController::class, 'edit'])->name('comments.edit');
+
 });
