@@ -1,11 +1,37 @@
 <?php
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\DashboardController;
+use App\Models\Post;
 
+// routes/web.php
+Route::get('/profile', function () {
+    return view('profile');
+})->middleware(['auth'])->name('profile');
+
+Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
+Route::get('/profile', [ProfileController::class, 'edit'])->middleware(['auth'])->name('profile');
+
+Route::get('/home', function () {
+    $posts = Post::latest()->take(6)->get(); // Oxirgi 6 ta postni olamiz
+    return view('home', ['posts' => []]);
+})->name('home');
+
+Route::post('/logout', function () {
+    Auth::logout();
+    return redirect('/login')->with('status', 'Tizimdan muvaffaqiyatli chiqdingiz!');
+})->name('logout');
+
+Route::get('/dashboard/my-posts', [DashboardController::class, 'myPosts'])->name('dashboard.my-posts');
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
+});
 Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
 
 Route::get('/', function () {
@@ -14,7 +40,7 @@ Route::get('/', function () {
 
 Route::get('/dashboard', function () {
     return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+})->middleware(['auth'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -32,9 +58,7 @@ Route::middleware(['auth', 'is_admin'])->group(function () {
     Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
 });
 
-Route::middleware(['auth'])->group(function () {
-    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-});
+
 
 Route::get('/admin/dashboard',[AdminController::class, 'dashboard'])->name('admin.dashboard');
 

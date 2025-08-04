@@ -18,4 +18,11 @@ public function index()
         'users' => User::count(),
     ]);
 }
+
+public function myPosts()
+{
+   $userId = auth()->id;
+   $posts = Post::where('user_id', $userId)->get();
+   return view ('dashboard.my-posts', compact('posts'));
+}
 }

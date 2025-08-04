@@ -1,25 +1,12 @@
+<!-- resources/views/layouts/app.blade.php -->
 <!DOCTYPE html>
-<html>
+<html lang="uz">
 <head>
-    <title>Dashboard</title>
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+  <meta charset="UTF-8">
+  <title>My Blog</title>
+  @vite(['resources/css/app.css', 'resources/js/app.js']) <!-- Tailwind ulanishi -->
 </head>
-<body>
-    <nav>
-        <ul>
-            <li><a href="/dashboard">🏠 Dashboard</a></li>
-            <li><a href="#">📁 Fayllar</a></li>
-            <li>
-                <form method="POST" action="{{ route('logout') }}">
-                    @csrf
-                    <button type="submit">🔓 Logout</button>
-                </form>
-            </li>
-        </ul>
-    </nav>
-
-    <div class="container">
-        @yield('content')
-    </div>
+<body class="bg-gray-50">
+  @yield('content')
 </body>
 </html>
