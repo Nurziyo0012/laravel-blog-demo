@@ -1,6 +1,8 @@
 <!-- resources/views/home.blade.php -->
 @extends('layouts.app')
-
+@php
+use Illuminate\Support\Str;
+@endphp
 @section('content')
 <header class="bg-white shadow p-4 flex justify-between items-center">
   <h1 class="text-2xl font-bold text-gray-800">My Blog</h1>

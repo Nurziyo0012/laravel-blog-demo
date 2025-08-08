@@ -14,40 +14,28 @@ class PostController extends Controller
     public function index()
     {
         $posts = Post::all();
-        return view('posts.index', compact('posts'));
+        return view('home', compact('posts'));
     }
 
-    // Post yaratish forma
-    public function create()
-    {
-        return view('posts.create');
-    }
+// Forma sahifasini ko‘rsatish
+public function create() {
+    return view('posts.create');
+}
 
-    // Postni saqlash
- public function store(Request $request)
-{
+// Postni saqlash
+public function store(Request $request) {
     $request->validate([
-        'title' => 'required',
-        'content' => 'required',
-        'image' => 'image|mimes:jpeg,png,jpg,gif|max:2048'
+        'title' => 'required|string|max:255',
+        'body' => 'required|string',
     ]);
 
-    $post = new Post;
-    $post->title = $request->title;
-    $post->content = $request->content;
-    $post->user_id = Auth::id(); // 🔐 Muallifni biriktirdik
+    Post::create([
+        'title' => $request->title,
+        'body' => $request->body,
+        'user_id' => Auth::id(),
+    ]);
 
-    if ($request->hasFile('image')) {
-        $image = $request->file('image');
-        $name = time().'.'.$image->getClientOriginalExtension();
-        $destinationPath = public_path('/images');
-        $image->move($destinationPath, $name);
-        $post->image = $name;
-    }
-
-    $post->save();
-
-    return redirect()->route('posts.index')->with('success', 'Post created successfully.');
+    return redirect()->route('home');
 }
     // Yagona postni ko‘rish
     public function show($id)
@@ -110,6 +98,11 @@ class PostController extends Controller
 
     return redirect()->route('admin.dashboard')->with('success', 'Post o‘chirildi!');
     }
+
+    public function confirmDelete($id) {
+        $post = Post::findOrFail($id);
+    return view('posts.delete-confirmation', compact('post'));
+}
 
     
 }

@@ -3,9 +3,11 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Post extends Model
 {
+    use HasFactory;
     public function comments()
 {
     return $this->hasMany(Comment::class);
@@ -16,6 +18,6 @@ class Post extends Model
     return $this->belongsTo(User::class);
 }
 
-protected $fillable = ['title', 'content', 'user_id'];
+protected $fillable = ['title', 'body', 'user_id'];
 
 }

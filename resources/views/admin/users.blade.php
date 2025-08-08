@@ -1,17 +1,17 @@
 @extends('layouts.app')
 
-@section('title', 'Foydalanuvchilar ro‘yxati')
+@section('title', 'User list')
 
 @section('content')
-<h3>👥 Barcha foydalanuvchilar</h3>
+<h3>👥 All users</h3>
 
 <table class="table table-bordered">
     <thead>
         <tr>
             <th>#</th>
-            <th>Ism</th>
+            <th>Name</th>
             <th>Email</th>
-            <th>Ro‘yxatga olingan sana</th>
+            <th>Registered day</th>
             <th>Admin?</th>
         </tr>
     </thead>

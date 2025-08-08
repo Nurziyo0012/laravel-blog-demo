@@ -1,28 +1,103 @@
-<ul>
-@foreach($posts as $post)
-    <li>
-        <strong>{{ $post->title }}</strong> — ✍️ {{ $post->user->name }}
-         <p>Postlar soni: {{ $postCount }}</p>
-<p>Foydalanuvchilar soni: {{ $userCount }}</p>
-<p>Izohlar soni: {{ $commentCount }}</p>
-        <a href="{{ route('posts.edit', $post->id) }}" class="btn btn-sm btn-warning">✏️ Tahrirlash</a>
-
-        <form action="{{ route('posts.destroy', $post->id) }}" method="POST" style="display:inline;">
-            @csrf
-            @method('DELETE')
-            <button class="btn btn-sm btn-danger" onclick="return confirm('Haqiqatan ham o‘chirmoqchimisiz?')">🗑️ O‘chirish</button>
-        </form>
-        <form method="POST" action="{{ route('logout') }}">
-    @csrf
-    <button type="submit">Logout</button>
-</form>
-    </li>
-@endforeach
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
-    <h1>👋 Admin Dashboard ishlayapti!</h1>
+<style>
+    .dashboard-container {
+        max-width: 1000px;
+        margin: 50px auto;
+        background: #ffffff;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        border-radius: 12px;
+        padding: 40px;
+        font-family: 'Segoe UI', sans-serif;
+    }
+
+    .dashboard-title {
+        font-size: 32px;
+        font-weight: 700;
+        color: #2c3e50;
+        margin-bottom: 30px;
+        text-align: center;
+    }
+
+    .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 20px;
+        margin-bottom: 40px;
+    }
+
+    .stat-card {
+        background: #f8f9fa;
+        border-radius: 10px;
+        padding: 20px;
+        text-align: center;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    }
+
+    .stat-number {
+        font-size: 28px;
+        font-weight: bold;
+        color: #007bff;
+    }
+
+    .stat-label {
+        font-size: 16px;
+        color: #555;
+    }
+
+    .actions {
+        display: flex;
+        justify-content: center;
+        gap: 15px;
+    }
+
+    .btn-custom {
+        padding: 12px 24px;
+        border-radius: 6px;
+        font-weight: 500;
+        text-decoration: none;
+        transition: background 0.3s ease;
+        border: none;
+        cursor: pointer;
+    }
+
+    .btn-manage {
+        background: #17a2b8;
+        color: white;
+    }
+
+    .btn-create {
+        background: #28a745;
+        color: white;
+    }
+
+    .btn-custom:hover {
+        opacity: 0.9;
+    }
+</style>
+
+<div class="dashboard-container">
+    <h1 class="dashboard-title">📊 Admin Dashboard</h1>
+
+    <div class="stats-grid">
+        <div class="stat-card">
+            <div class="stat-number">{{ $postCount }}</div>
+            <div class="stat-label">Total Posts</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-number">{{ $userCount }}</div>
+            <div class="stat-label">Registered Users</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-number">{{ $commentCount }}</div>
+            <div class="stat-label">Comments</div>
+        </div>
+    </div>
+
+    <div class="actions">
+        <a href="{{ route('posts.index') }}" class="btn-custom btn-manage">🛠 Manage Posts</a>
+        <a href="{{ route('posts.create') }}" class="btn-custom btn-create">➕ Create New Post</a>
+    </div>
 </div>
 @endsection
-</ul>

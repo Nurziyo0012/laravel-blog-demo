@@ -1,42 +1,35 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Yangi Post Qo‘shish</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-</head>
-<body class="container mt-5">
+@extends('layouts.app')
 
-    <h1>✍️ Yangi Post Qo‘shish</h1>
+@section('content')
+<div class="max-w-xl mx-auto mt-10">
+  <h2 class="text-2xl font-bold mb-4">Write a new post ✍️</h2>
 
-    @if ($errors->any())
-        <div class="alert alert-danger">
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
+  @if ($errors->any())
+    <div class="bg-red-100 p-4 mb-4 text-red-700 rounded">
+      <ul>
+        @foreach ($errors->all() as $error)
+          <li>{{ $error }}</li>
+        @endforeach
+      </ul>
+    </div>
+  @endif
 
-    <form action="{{ route('posts.store') }}" method="POST" enctype="multipart/form-data">
-        @csrf
-        <div class="mb-3">
-            <label for="image" class="form-label">Rasm yuklash:</label>
-            <input type="file" name="image" class="form-control">
-        </div>
+  <form action="{{ route('posts.store') }}" method="POST">
+    @csrf
 
-        <div class="mb-3">
-            <label for="title" class="form-label">Sarlavha:</label>
-            <input type="text" name="title" class="form-control" value="{{ old('title') }}" required>
-        </div>
-        <div class="mb-3">
-            <label for="body" class="form-label">Mazmun:</label>
-            <textarea name="body" class="form-control" rows="6" required>{{ old('body') }}</textarea>
-        </div>
+    <div class="mb-4">
+      <label for="title" class="block text-sm font-semibold">Title</label>
+      <input type="text" name="title" class="w-full border rounded p-2" value="{{ old('title') }}">
+    </div>
 
-        <button type="submit" class="btn btn-primary">Saqlash</button>
-        <a href="{{ route('posts.index') }}" class="btn btn-secondary">Bekor qilish</a>
-    </form>
+    <div class="mb-4">
+      <label for="body" class="block text-sm font-semibold">Content</label>
+      <textarea name="body" rows="5" class="w-full border rounded p-2">{{ old('body') }}</textarea>
+    </div>
 
-</body>
-</html>
+    <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded">
+      Send Post 🚀
+    </button>
+  </form>
+</div>
+@endsection

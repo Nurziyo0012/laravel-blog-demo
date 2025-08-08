@@ -9,12 +9,6 @@ use App\Http\Controllers\DashboardController;
 use App\Models\Post;
 
 // routes/web.php
-Route::get('/profile', function () {
-    return view('profile');
-})->middleware(['auth'])->name('profile');
-
-Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
-Route::get('/profile', [ProfileController::class, 'edit'])->middleware(['auth'])->name('profile');
 
 Route::get('/home', function () {
     $posts = Post::latest()->take(6)->get(); // Oxirgi 6 ta postni olamiz
@@ -43,10 +37,19 @@ Route::get('/dashboard', function () {
 })->middleware(['auth'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
+    Route::get('/profile', function () {
+    return view('profile');
+})->middleware(['auth'])->name('profile');
+
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    
+Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
+Route::get('/profile', [ProfileController::class, 'index'])->name('profile.edit');
+
 });
+
 
 require __DIR__.'/auth.php';
 
@@ -63,10 +66,16 @@ Route::middleware(['auth', 'is_admin'])->group(function () {
 Route::get('/admin/dashboard',[AdminController::class, 'dashboard'])->name('admin.dashboard');
 
 // Kirish talab qilinmaydigan route’lar
-Route::get('/', [PostController::class, 'index'])->name('posts.index');
-Route::get('/posts/{post}', [PostController::class, 'show'])->name('posts.show');
+Route::get('/posts/create', [PostController::class, 'create'])->middleware('auth')->name('posts.create');
 Route::get('/posts/create', [PostController::class, 'create'])->name('posts.create');
+Route::get('/posts/{id}/comfirm-delete', [PostController::class, 'confirmDelete'])->name('posts.confirmDelete');
+
+Route::post('/posts', [PostController::class, 'store'])->middleware('auth')->name('posts.store');
 Route::post('/posts', [PostController::class, 'store'])->name('posts.store');
+Route::get('/posts', [PostController::class, 'index'])->name('posts.index');
+
+Route::get('/', [PostController::class, 'index'])->name('home');
+Route::get('/posts/{post}', [PostController::class, 'show'])->name('posts.show');
 // 🔐 Ro‘yxatdan o‘tganlar uchun cheklangan route’lar
 Route::middleware(['auth'])->group(function () {
 Route::resource('posts', PostController::class)->except(['index', 'show']);

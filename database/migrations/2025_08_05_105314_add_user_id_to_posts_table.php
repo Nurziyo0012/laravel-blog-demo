@@ -9,12 +9,9 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up()
+    public function up(): void
     {
-        Schema::create('posts', function (Blueprint $table) {
-            $table->id();
-            $table->string('title');
-            $table->text('body')->nullable();
+        Schema::table('posts', function (Blueprint $table) {
             $table->unsignedBigInteger('user_id'); 
             $table->timestamps();
         });
@@ -25,8 +22,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-      Schema::table('posts', function (Blueprint $table) {
-            $table->dropColumn(['title', 'body', 'user_id']);
+        Schema::table('posts', function (Blueprint $table) {
+            //
         });
     }
 };

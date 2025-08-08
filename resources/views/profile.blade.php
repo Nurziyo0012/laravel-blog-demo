@@ -1,15 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-@extends('layouts.app')
 
-@section('content')
-  <div class="p-6 bg-white shadow rounded">
-    <h2 class="text-2xl font-bold text-gray-800">Profile</h2>
-    <p class="mt-2 text-gray-600">{{ Auth::user()->name }}</p>
-    <p class="text-gray-600">{{ Auth::user()->email }}</p>
-  </div>
-@endsection
 <header class="bg-white shadow p-4 flex justify-between items-center">
   <h1 class="text-2xl font-bold text-gray-800">My Blog</h1>
   <nav class="space-x-4">
