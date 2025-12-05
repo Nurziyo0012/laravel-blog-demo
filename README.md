@@ -59,3 +59,26 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+# Laravel Blog Demo
+
+## 📌 About
+Laravel Blog Demo is a simple blogging platform built with the Laravel framework.  
+It allows users to create, edit, and manage blog posts with a clean and modern interface.
+
+## ⚙️ Tech Stack
+- Laravel (PHP Framework)
+- MySQL (Database)
+- Blade Templates (Frontend)
+- TailwindCSS / Vite (Styling & Build Tools)
+
+## 🚀 Features
+- User authentication (register & login)
+- Create, read, update, and delete blog posts (CRUD)
+- Responsive design with Blade templates
+- Database migrations and seeders
+- Basic error handling and validation
+
+## 🛠️ Installation
+1. Clone the repository:
+   `bash
+   git clone https://github.com/Nurziyo0012/laravel-blog-demo.git
