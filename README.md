@@ -78,6 +78,26 @@ It allows users to create, edit, and manage blog posts with a clean and modern i
 - Database migrations and seeders
 - Basic error handling and validation
 
+## 📷 Screenshots
+
+### Homepage
+![Homepage Screenshot](screenshots/homepage.png)
+
+### Create Post
+![Create Post Screenshot](screenshots/create-post.png)
+
+### Edit Posts
+![Edit posts Screenshot](screenshots/edit-post.png)
+
+### Posts 
+![Posts  Screenshot](screenshots/post.png)
+
+### Posts List
+![Posts List Screenshot](screenshots/post-list.png)
+
+### Loginpage 
+![Login Page Screenshot](screenshots/loginpage.png)
+
 ## 🛠️ Installation
 1. Clone the repository:
    `bash
